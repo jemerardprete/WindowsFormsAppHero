@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GUILDEHEROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="id_hero" />
+          </Key>
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" />
+          <Property Name="specialite" Type="varchar" MaxLength="50" />
+          <Property Name="classHero" Type="varchar" MaxLength="50" />
+          <Property Name="lvl" Type="int" />
+          <Property Name="puissance" Type="int" />
+          <Property Name="missionReussi" Type="int" />
+          <Property Name="reputation" Type="int" />
+          <Property Name="id_hero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sacoche">
+          <Key>
+            <PropertyRef Name="id_sacoche" />
+          </Key>
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="lvlObj" Type="int" />
+          <Property Name="quantite" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="prix" Type="real" />
+          <Property Name="id_sacoche" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_hero" Type="int" />
+        </EntityType>
+        <Association Name="FK_Sacoche_Hero1">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+          <End Role="Sacoche" Type="Self.Sacoche" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="id_hero" />
+            </Principal>
+            <Dependent Role="Sacoche">
+              <PropertyRef Name="id_hero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GUILDEHEROModelStoreContainer">
+          <EntitySet Name="Hero" EntityType="Self.Hero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sacoche" EntityType="Self.Sacoche" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Sacoche_Hero1" Association="Self.FK_Sacoche_Hero1">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Sacoche" EntitySet="Sacoche" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GUILDEHEROModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="id_hero" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="specialite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="classHero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lvl" Type="Int32" />
+          <Property Name="puissance" Type="Int32" />
+          <Property Name="missionReussi" Type="Int32" />
+          <Property Name="reputation" Type="Int32" />
+          <Property Name="id_hero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Sacoche" Relationship="Self.FK_Sacoche_Hero" FromRole="Hero" ToRole="Sacoche" />
+        </EntityType>
+        <EntityType Name="Sacoche">
+          <Key>
+            <PropertyRef Name="id_sacoche" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lvlObj" Type="Int32" />
+          <Property Name="quantite" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prix" Type="Single" />
+          <Property Name="id_sacoche" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_hero" Type="Int32" />
+          <NavigationProperty Name="Hero" Relationship="Self.FK_Sacoche_Hero" FromRole="Sacoche" ToRole="Hero" />
+        </EntityType>
+        <Association Name="FK_Sacoche_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+          <End Role="Sacoche" Type="Self.Sacoche" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="id_hero" />
+            </Principal>
+            <Dependent Role="Sacoche">
+              <PropertyRef Name="id_hero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GUILDEHEROEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hero" EntityType="Self.Hero" />
+          <EntitySet Name="Sacoche" EntityType="Self.Sacoche" />
+          <AssociationSet Name="FK_Sacoche_Hero" Association="Self.FK_Sacoche_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Sacoche" EntitySet="Sacoche" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GUILDEHEROModelStoreContainer" CdmEntityContainer="GUILDEHEROEntities">
+          <EntitySetMapping Name="Hero">
+            <EntityTypeMapping TypeName="GUILDEHEROModel.Hero">
+              <MappingFragment StoreEntitySet="Hero">
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="specialite" ColumnName="specialite" />
+                <ScalarProperty Name="classHero" ColumnName="classHero" />
+                <ScalarProperty Name="lvl" ColumnName="lvl" />
+                <ScalarProperty Name="puissance" ColumnName="puissance" />
+                <ScalarProperty Name="missionReussi" ColumnName="missionReussi" />
+                <ScalarProperty Name="reputation" ColumnName="reputation" />
+                <ScalarProperty Name="id_hero" ColumnName="id_hero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sacoche">
+            <EntityTypeMapping TypeName="GUILDEHEROModel.Sacoche">
+              <MappingFragment StoreEntitySet="Sacoche">
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="lvlObj" ColumnName="lvlObj" />
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="id_sacoche" ColumnName="id_sacoche" />
+                <ScalarProperty Name="id_hero" ColumnName="id_hero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GUILDEHEROModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Hero">
+    <Key>
+      <PropertyRef Name="id_hero" />
+    </Key>
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="specialite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="classHero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lvl" Type="Int32" />
+    <Property Name="puissance" Type="Int32" />
+    <Property Name="missionReussi" Type="Int32" />
+    <Property Name="reputation" Type="Int32" />
+    <Property Name="id_hero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Sacoche" Relationship="Self.FK_Sacoche_Hero" FromRole="Hero" ToRole="Sacoche" />
+  </EntityType>
+  <EntityType Name="Sacoche">
+    <Key>
+      <PropertyRef Name="id_sacoche" />
+    </Key>
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lvlObj" Type="Int32" />
+    <Property Name="quantite" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prix" Type="Single" />
+    <Property Name="id_sacoche" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_hero" Type="Int32" />
+    <NavigationProperty Name="Hero" Relationship="Self.FK_Sacoche_Hero" FromRole="Sacoche" ToRole="Hero" />
+  </EntityType>
+  <Association Name="FK_Sacoche_Hero">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="Sacoche" Type="Self.Sacoche" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="id_hero" />
+      </Principal>
+      <Dependent Role="Sacoche">
+        <PropertyRef Name="id_hero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GUILDEHEROEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Hero" EntityType="Self.Hero" />
+    <EntitySet Name="Sacoche" EntityType="Self.Sacoche" />
+    <AssociationSet Name="FK_Sacoche_Hero" Association="Self.FK_Sacoche_Hero">
+      <End Role="Hero" EntitySet="Hero" />
+      <End Role="Sacoche" EntitySet="Sacoche" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

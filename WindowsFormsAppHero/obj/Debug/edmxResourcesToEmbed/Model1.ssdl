@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GUILDEHEROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Hero">
+    <Key>
+      <PropertyRef Name="id_hero" />
+    </Key>
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" MaxLength="50" />
+    <Property Name="specialite" Type="varchar" MaxLength="50" />
+    <Property Name="classHero" Type="varchar" MaxLength="50" />
+    <Property Name="lvl" Type="int" />
+    <Property Name="puissance" Type="int" />
+    <Property Name="missionReussi" Type="int" />
+    <Property Name="reputation" Type="int" />
+    <Property Name="id_hero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sacoche">
+    <Key>
+      <PropertyRef Name="id_sacoche" />
+    </Key>
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="lvlObj" Type="int" />
+    <Property Name="quantite" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="prix" Type="real" />
+    <Property Name="id_sacoche" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_hero" Type="int" />
+  </EntityType>
+  <Association Name="FK_Sacoche_Hero1">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="Sacoche" Type="Self.Sacoche" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="id_hero" />
+      </Principal>
+      <Dependent Role="Sacoche">
+        <PropertyRef Name="id_hero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GUILDEHEROModelStoreContainer">
+    <EntitySet Name="Hero" EntityType="Self.Hero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sacoche" EntityType="Self.Sacoche" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Sacoche_Hero1" Association="Self.FK_Sacoche_Hero1">
+      <End Role="Hero" EntitySet="Hero" />
+      <End Role="Sacoche" EntitySet="Sacoche" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

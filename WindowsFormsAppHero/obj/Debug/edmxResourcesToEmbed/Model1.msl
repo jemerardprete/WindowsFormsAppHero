@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GUILDEHEROModelStoreContainer" CdmEntityContainer="GUILDEHEROEntities">
+    <EntitySetMapping Name="Hero">
+      <EntityTypeMapping TypeName="GUILDEHEROModel.Hero">
+        <MappingFragment StoreEntitySet="Hero">
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="specialite" ColumnName="specialite" />
+          <ScalarProperty Name="classHero" ColumnName="classHero" />
+          <ScalarProperty Name="lvl" ColumnName="lvl" />
+          <ScalarProperty Name="puissance" ColumnName="puissance" />
+          <ScalarProperty Name="missionReussi" ColumnName="missionReussi" />
+          <ScalarProperty Name="reputation" ColumnName="reputation" />
+          <ScalarProperty Name="id_hero" ColumnName="id_hero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sacoche">
+      <EntityTypeMapping TypeName="GUILDEHEROModel.Sacoche">
+        <MappingFragment StoreEntitySet="Sacoche">
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="lvlObj" ColumnName="lvlObj" />
+          <ScalarProperty Name="quantite" ColumnName="quantite" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="id_sacoche" ColumnName="id_sacoche" />
+          <ScalarProperty Name="id_hero" ColumnName="id_hero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
